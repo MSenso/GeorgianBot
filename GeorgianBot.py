@@ -5,6 +5,7 @@
 import os
 
 from google.cloud import translate_v2 as translate
+from telegram.ext import CallbackContext
 from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.filters import Filters
 from telegram.ext.messagehandler import MessageHandler
@@ -169,7 +170,7 @@ def game_round(update, true_number, inp):
         return True
 
 
-def start(update: Update):
+def start(update: Update, context: CallbackContext):
     update.message.reply_text(("გამარჯობა! Я могу выполнять перевод с грузинского языка на русский, "
                                "просто отправьте мне сообщение на грузинском языке! "
                                " Также Вы можете играть в 'Угадай число от 1 до 100' на грузинском"
@@ -177,7 +178,7 @@ def start(update: Update):
                                " Инструкцию можно получить с помощью /help"))
 
 
-def get_help(update: Update):
+def get_help(update: Update, context: CallbackContext):
     update.message.reply_text(("Бот имеет две функции: перевод текста с грузинского на русский"
                                " и игра 'Угадай число от 1 до 100' на грузинском языке."
                                " При выборе команды /play начнется игра. При выборе команды "
@@ -185,7 +186,7 @@ def get_help(update: Update):
                                "можно вне режима игры: когда она завершена или остановлена"))
 
 
-def stop(update: Update):
+def stop(update: Update, context: CallbackContext):
     global in_game
     global is_finished
     global correct_number
@@ -197,16 +198,16 @@ def stop(update: Update):
     update.message.reply_text("Игра остановлена")
 
 
-def translate_command(update: Update):
+def translate_command(update: Update, context: CallbackContext):
     update.message.reply_text(translate_to_ru(update.message.text))
 
 
-def unknown(update: Update):
+def unknown(update: Update, context: CallbackContext):
     update.message.reply_text(
         "Извините, введена невалидная команда. Бот принимает команды /start, /help, /play, /stop")
 
 
-def play_game(update: Update):
+def play_game(update: Update, context: CallbackContext):
     global in_game
     global is_finished
     global correct_number
@@ -219,7 +220,7 @@ def play_game(update: Update):
     attempts_count = 0
 
 
-def switch_mode(update: Update):
+def switch_mode(update: Update, context: CallbackContext):
     global in_game
     global is_finished
     global correct_number

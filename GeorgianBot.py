@@ -43,6 +43,8 @@ def is_correct_twenty_based(number, prefixes):
     prefix = number.split("ოცი")
     if prefix[0] in prefixes:
         return 1
+    else:
+        return -1
 
 
 def is_correct_composed_number(number, first_numbers, prefixes):

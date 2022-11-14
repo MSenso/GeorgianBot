@@ -233,7 +233,7 @@ def switch_mode(update: Update, context: CallbackContext):
             correct_number = -1
             attempts_count = 0
     else:
-        translate_command(update)
+        translate_command(update, context)
 
 
 if __name__ == '__main__':
